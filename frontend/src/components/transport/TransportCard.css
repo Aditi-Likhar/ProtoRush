@@ -1,0 +1,174 @@
+/* =========================================================================
+   TransportCard — comparison card with mini progress indicators
+   ========================================================================= */
+
+.transport-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  transition:
+    box-shadow var(--duration-base) var(--ease-smooth),
+    border-color var(--duration-base) var(--ease-smooth);
+}
+
+.transport-card:hover {
+  border-color: var(--color-border-glass-strong);
+  box-shadow: var(--shadow-elevated), var(--shadow-glow-teal);
+}
+
+.transport-card.is-active {
+  border-color: var(--color-accent-gold);
+  box-shadow: var(--shadow-glow-gold);
+}
+
+/* ---- Badge -------------------------------------------------------------- */
+.t-badge {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--color-text-on-accent);
+}
+
+.t-badge--ai {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-teal),
+    var(--color-accent-violet)
+  );
+  color: var(--color-text-primary);
+}
+.t-badge--cheap {
+  background: linear-gradient(
+    135deg,
+    var(--color-success),
+    var(--color-accent-teal)
+  );
+  color: var(--color-text-on-accent);
+}
+.t-badge--eco {
+  background: linear-gradient(
+    135deg,
+    var(--color-success),
+    var(--color-accent-gold)
+  );
+  color: var(--color-text-on-accent);
+}
+.t-badge--comfort {
+  background: var(--gradient-btn-primary);
+}
+.t-badge--recommended {
+  background: linear-gradient(
+    135deg,
+    var(--color-danger),
+    var(--color-accent-gold)
+  );
+}
+
+/* ---- Head ----------------------------------------------------------------- */
+.transport-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-right: var(--space-16);
+}
+
+.transport-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  font-size: var(--text-xl);
+  color: var(--color-accent-gold);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border-glass);
+  flex-shrink: 0;
+}
+
+.transport-card__name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.transport-card__distance {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ---- Key stats -------------------------------------------------------------- */
+.transport-card__key-stats {
+  display: flex;
+  gap: var(--space-6);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-border-glass);
+  border-bottom: 1px solid var(--color-border-glass);
+}
+
+.transport-card__key-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.transport-card__stat-value {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-text-primary);
+}
+
+.transport-card__stat-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ---- Mini progress bars ------------------------------------------------------ */
+.transport-card__bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.mini-bar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.mini-bar__track {
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-glass);
+  overflow: hidden;
+}
+
+.mini-bar__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+.mini-bar__fill--gold {
+  background: var(--gradient-btn-primary);
+}
+.mini-bar__fill--teal {
+  background: var(--color-accent-teal);
+}
+.mini-bar__fill--success {
+  background: var(--color-success);
+}

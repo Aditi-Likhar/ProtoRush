@@ -1,0 +1,262 @@
+/* =========================================================================
+   RecommendationCard — concierge result card with animated match ring
+   ========================================================================= */
+
+.recommendation-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--color-border-glass);
+  box-shadow: var(--shadow-glass);
+  transition:
+    box-shadow var(--duration-base) var(--ease-smooth),
+    border-color var(--duration-base) var(--ease-smooth);
+}
+
+.recommendation-card:hover {
+  border-color: var(--color-border-glass-strong);
+  box-shadow: var(--shadow-elevated), var(--shadow-glow-gold);
+}
+
+/* ---- Image ------------------------------------------------------------- */
+.recommendation-card__image-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.recommendation-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-smooth);
+}
+
+.recommendation-card:hover .recommendation-card__image {
+  transform: scale(1.08);
+}
+
+.recommendation-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 14, 20, 0.1) 0%,
+    rgba(10, 14, 20, 0.15) 45%,
+    rgba(10, 14, 20, 0.92) 100%
+  );
+}
+
+.recommendation-card__identity {
+  position: absolute;
+  left: var(--space-5);
+  bottom: var(--space-4);
+  right: var(--space-5);
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.recommendation-card__name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.recommendation-card__country {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* ---- Badge & favorite ---------------------------------------------------- */
+.r-badge {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-text-on-accent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.r-badge--ai {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-teal),
+    var(--color-accent-violet)
+  );
+  color: var(--color-text-primary);
+}
+.r-badge--popular {
+  background: var(--gradient-btn-primary);
+}
+.r-badge--trending {
+  background: linear-gradient(
+    135deg,
+    var(--color-danger),
+    var(--color-accent-gold)
+  );
+}
+.r-badge--eco {
+  background: linear-gradient(
+    135deg,
+    var(--color-success),
+    var(--color-accent-teal)
+  );
+  color: var(--color-text-on-accent);
+}
+.r-badge--luxury {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-violet),
+    var(--color-accent-gold)
+  );
+  color: var(--color-text-primary);
+}
+
+.recommendation-card__fav {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--color-text-primary);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border-glass-strong);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    transform var(--duration-fast) var(--ease-smooth),
+    color var(--duration-fast) var(--ease-smooth);
+}
+
+.recommendation-card__fav:hover {
+  transform: scale(1.1);
+}
+
+.recommendation-card__fav.is-saved {
+  color: var(--color-danger);
+}
+
+/* ---- Panel ---------------------------------------------------------------- */
+.recommendation-card__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: 0;
+  border: none;
+}
+
+.recommendation-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.recommendation-card__desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---- Match ring ------------------------------------------------------------ */
+.match-ring {
+  position: relative;
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+}
+
+.match-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.match-ring__track {
+  stroke: var(--color-border-glass);
+}
+
+.match-ring__value {
+  stroke: url(#none);
+  stroke: var(--color-accent-gold);
+  stroke-linecap: round;
+}
+
+.match-ring__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-primary);
+}
+
+/* ---- Stats & footer -------------------------------------------------------- */
+.recommendation-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-glass);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.recommendation-card__stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.recommendation-card__stats svg {
+  color: var(--color-accent-teal);
+}
+
+.recommendation-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recommendation-card__weather {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+.recommendation-card__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  color: var(--color-accent-gold);
+}

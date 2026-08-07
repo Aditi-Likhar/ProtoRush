@@ -1,0 +1,236 @@
+/* =========================================================================
+   RecommendationSection — AI concierge planner + results
+   ========================================================================= */
+
+.recommendation-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.recommendation-section__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rs-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.4;
+}
+
+.rs-blob--violet {
+  width: 480px;
+  height: 480px;
+  top: -12%;
+  right: -8%;
+  background: var(--color-accent-violet-soft);
+}
+
+.rs-blob--gold {
+  width: 420px;
+  height: 420px;
+  bottom: -10%;
+  left: -10%;
+  background: var(--color-accent-gold-soft);
+}
+
+.recommendation-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Header --------------------------------------------------------------- */
+.recommendation-section__header {
+  max-width: 640px;
+  margin-bottom: var(--space-12);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.recommendation-section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.recommendation-section__paragraph {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ---- Planner panel ---------------------------------------------------------- */
+.planner-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-6);
+  padding: var(--space-8);
+  margin-bottom: var(--space-16);
+}
+
+.planner-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.planner-field label,
+.planner-field__label {
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.planner-field select {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border-glass);
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-smooth);
+}
+
+.planner-field select:focus {
+  border-color: var(--color-accent-teal);
+}
+
+.planner-field select option {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+.segmented-selector {
+  display: flex;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border-glass);
+}
+
+.segmented-selector button {
+  flex: 1;
+  padding: var(--space-3) var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  border-right: 1px solid var(--color-border-glass);
+  transition:
+    color var(--duration-fast) var(--ease-smooth),
+    background var(--duration-fast) var(--ease-smooth);
+}
+
+.segmented-selector button:last-child {
+  border-right: none;
+}
+
+.segmented-selector button:hover {
+  color: var(--color-text-primary);
+}
+
+.segmented-selector button.is-active {
+  color: var(--color-text-on-accent);
+  background: var(--gradient-btn-primary);
+}
+
+.chip-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip-selector button {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-glass);
+  transition:
+    color var(--duration-fast) var(--ease-smooth),
+    background var(--duration-fast) var(--ease-smooth),
+    border-color var(--duration-fast) var(--ease-smooth);
+}
+
+.chip-selector button:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-glass-strong);
+}
+
+.chip-selector button.is-active {
+  color: var(--color-text-on-accent);
+  background: var(--gradient-btn-primary);
+  border-color: transparent;
+}
+
+.planner-generate {
+  grid-column: 1 / -1;
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.planner-generate__arrow {
+  transition: transform var(--duration-base) var(--ease-smooth);
+}
+
+.planner-generate:hover .planner-generate__arrow {
+  transform: translateX(4px);
+}
+
+/* ---- Results grid ------------------------------------------------------------ */
+.recommendation-section__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.recommendation-section__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-12);
+}
+
+/* -------------------------------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .recommendation-section__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .planner-panel {
+    grid-template-columns: 1fr;
+    padding: var(--space-6);
+  }
+}
+
+@media (max-width: 640px) {
+  .recommendation-section__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recommendation-section__title {
+    font-size: var(--text-3xl);
+  }
+
+  .segmented-selector {
+    flex-wrap: wrap;
+  }
+
+  .segmented-selector button {
+    flex: 1 1 45%;
+    border-bottom: 1px solid var(--color-border-glass);
+  }
+}

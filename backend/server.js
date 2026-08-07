@@ -1,21 +1,49 @@
-import express from "express";
-import dotenv from "dotenv";
-import connectDB from "./config/db.js";
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./src/config/db");
 
-dotenv.config();
+const attractionRoutes = require("./src/routes/attractionRoutes");
+const transportRoutes = require("./src/routes/transportRoutes");
+const emergencyRoutes = require("./src/routes/emergencyRoutes");
+const recommendationRoutes = require("./src/routes/recommendationRoutes");
+const chatbotRoutes = require("./src/routes/chatbotRoutes");
 
-connectDB();
+const { notFound, errorHandler } = require("./src/middleware/errorHandler");
 
 const app = express();
 
-app.use(express.json());
+// Connect to MongoDB
+connectDB();
 
+// Core middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Health check
 app.get("/", (req, res) => {
-  res.send("Server Running");
+  res.status(200).json({
+    success: true,
+    message: "TravelMate AI backend is running 🚀",
+  });
 });
+
+// Mount routes
+app.use("/api/attractions", attractionRoutes);
+app.use("/api/transport", transportRoutes);
+app.use("/api/emergency", emergencyRoutes);
+app.use("/api/recommendations", recommendationRoutes);
+app.use("/api/chatbot", chatbotRoutes);
+
+// Error handling (must be last)
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = app;
